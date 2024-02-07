@@ -6,9 +6,27 @@
             "id": "40b9649d-3489-4c7e-b1a6-4e35d24b420c",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Tap",
                     "type": "Button",
                     "id": "52762d3d-b019-4a24-965d-27e4ae1e17f1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Swipe",
+                    "type": "Button",
+                    "id": "9206d4c9-0c8c-4e0e-b614-cfce595b55f9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Hold",
+                    "type": "Button",
+                    "id": "e1304c29-3d7c-4070-b86f-f31f8e4d8913",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -18,12 +36,45 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "e30e841f-addf-47d6-a62d-9e1069095fac",
+                    "id": "9b578dd0-fea2-4993-ad6b-961034588630",
                     "path": "",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45a3ba26-7312-4488-9318-da39e26d110a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Hold",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "feaa66bc-bc69-41c7-a69f-98240944617b",
+                    "path": "<Touchscreen>/primaryTouch/indirectTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "751f6d82-8b34-4ffc-b180-6054ce25c70b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

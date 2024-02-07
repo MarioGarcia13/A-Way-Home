@@ -28,9 +28,27 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ""id"": ""40b9649d-3489-4c7e-b1a6-4e35d24b420c"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Tap"",
                     ""type"": ""Button"",
                     ""id"": ""52762d3d-b019-4a24-965d-27e4ae1e17f1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Swipe"",
+                    ""type"": ""Button"",
+                    ""id"": ""9206d4c9-0c8c-4e0e-b614-cfce595b55f9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hold"",
+                    ""type"": ""Button"",
+                    ""id"": ""e1304c29-3d7c-4070-b86f-f31f8e4d8913"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -40,12 +58,45 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""e30e841f-addf-47d6-a62d-9e1069095fac"",
+                    ""id"": ""9b578dd0-fea2-4993-ad6b-961034588630"",
                     ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Swipe"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45a3ba26-7312-4488-9318-da39e26d110a"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hold"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""feaa66bc-bc69-41c7-a69f-98240944617b"",
+                    ""path"": ""<Touchscreen>/primaryTouch/indirectTouch"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""751f6d82-8b34-4ffc-b180-6054ce25c70b"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -56,7 +107,9 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
 }");
         // Action
         m_Action = asset.FindActionMap("Action", throwIfNotFound: true);
-        m_Action_Newaction = m_Action.FindAction("New action", throwIfNotFound: true);
+        m_Action_Tap = m_Action.FindAction("Tap", throwIfNotFound: true);
+        m_Action_Swipe = m_Action.FindAction("Swipe", throwIfNotFound: true);
+        m_Action_Hold = m_Action.FindAction("Hold", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +171,16 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     // Action
     private readonly InputActionMap m_Action;
     private List<IActionActions> m_ActionActionsCallbackInterfaces = new List<IActionActions>();
-    private readonly InputAction m_Action_Newaction;
+    private readonly InputAction m_Action_Tap;
+    private readonly InputAction m_Action_Swipe;
+    private readonly InputAction m_Action_Hold;
     public struct ActionActions
     {
         private @PlayerActions m_Wrapper;
         public ActionActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Action_Newaction;
+        public InputAction @Tap => m_Wrapper.m_Action_Tap;
+        public InputAction @Swipe => m_Wrapper.m_Action_Swipe;
+        public InputAction @Hold => m_Wrapper.m_Action_Hold;
         public InputActionMap Get() { return m_Wrapper.m_Action; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -133,16 +190,28 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_ActionActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_ActionActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            @Tap.started += instance.OnTap;
+            @Tap.performed += instance.OnTap;
+            @Tap.canceled += instance.OnTap;
+            @Swipe.started += instance.OnSwipe;
+            @Swipe.performed += instance.OnSwipe;
+            @Swipe.canceled += instance.OnSwipe;
+            @Hold.started += instance.OnHold;
+            @Hold.performed += instance.OnHold;
+            @Hold.canceled += instance.OnHold;
         }
 
         private void UnregisterCallbacks(IActionActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Tap.started -= instance.OnTap;
+            @Tap.performed -= instance.OnTap;
+            @Tap.canceled -= instance.OnTap;
+            @Swipe.started -= instance.OnSwipe;
+            @Swipe.performed -= instance.OnSwipe;
+            @Swipe.canceled -= instance.OnSwipe;
+            @Hold.started -= instance.OnHold;
+            @Hold.performed -= instance.OnHold;
+            @Hold.canceled -= instance.OnHold;
         }
 
         public void RemoveCallbacks(IActionActions instance)
@@ -162,6 +231,8 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     public ActionActions @Action => new ActionActions(this);
     public interface IActionActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnTap(InputAction.CallbackContext context);
+        void OnSwipe(InputAction.CallbackContext context);
+        void OnHold(InputAction.CallbackContext context);
     }
 }
